@@ -60,6 +60,18 @@ app.get("/data", async (req, res) => {
   }
 });
 
+app.get("/click", async (req, res) => {
+  const { id } = req.body;
+  try {
+    const data =
+      await sql`UPDATE blogit SET click = COALESCE(click, 0) + 1 WHERE id = ${id}`;
+    res.status(200).json(data.rows);
+    console.log(data.rows);
+  } catch (error) {
+    res.status(500).send("Error feching data");
+  }
+});
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`backened running on port ${PORT}`);
