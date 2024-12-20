@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require("cors");
 const crypto = require("crypto");
@@ -53,7 +52,7 @@ app.post("/feedback", async (req, res) => {
 
 app.get("/data", async (req, res) => {
   try {
-    const data = await sql`SELECT * FROM blogit`;
+    const data = await sql`SELECT * FROM blogit ORDER BY created_at DESC`;
     res.status(200).json(data.rows);
     console.log(data.rows);
   } catch (error) {
