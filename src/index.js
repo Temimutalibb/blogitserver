@@ -26,7 +26,6 @@ function generateTag() {
 app.post("/feedback", async (req, res) => {
   const { title, content, username, link, category } = req.body;
   if (title && content) {
-    console.log(content);
     const pin = await generatePin();
     const tag = await generateTag();
     try {
@@ -54,7 +53,6 @@ app.get("/data", async (req, res) => {
   try {
     const data = await sql`SELECT * FROM blogit ORDER BY created_at DESC`;
     res.status(200).json(data.rows);
-    console.log(data.rows);
   } catch (error) {
     res.status(500).send("Error feching data");
   }
