@@ -69,6 +69,17 @@ app.post("/click", async (req, res) => {
   }
 });
 
+app.post("/delete", async (req, res) => {
+  const { id, tag, pin } = req.body;
+  try {
+    const data =
+      await sql`DELETE FROM blogit WHERE id = ${id} AND tag = ${tag} AND pin = ${pin}`;
+    res.status(200).json({ message: "Row deleted successfully" });
+  } catch (error) {
+    res.status(500).send("Error deleting data");
+  }
+});
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`backened running on port ${PORT}`);
